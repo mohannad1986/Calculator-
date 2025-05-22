@@ -1,0 +1,107 @@
+
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>تحويل الرصيد</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      direction: rtl;
+      margin: 0;
+    }
+
+    .container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, button, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      font-size: 16px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .result {
+      font-size: 20px;
+      font-weight: bold;
+      text-align: center;
+      color: #2e7d32;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>تحويل الرصيد</h2>
+
+    <label for="type">اختر نوع الطلب:</label>
+    <select id="type">
+      <option value="balance">رصيد مطلوب (مثال: 1000 وحدة)</option>
+      <option value="money">قيمة مالية (مثال: 1000 ليرة)</option>
+    </select>
+
+    <label for="value">أدخل القيمة:</label>
+    <input type="number" id="value" placeholder="أدخل الرقم هنا">
+
+    <button onclick="calculate()">احسب</button>
+
+    <div class="result" id="result">النتيجة: </div>
+  </div>
+
+  <script>
+    function calculate() {
+      const type = document.getElementById('type').value;
+      const value = parseFloat(document.getElementById('value').value);
+      const resultElement = document.getElementById('result');
+
+      if (isNaN(value) || value <= 0) {
+        resultElement.textContent = 'الرجاء إدخال قيمة صحيحة.';
+        return;
+      }
+
+      let result;
+
+      if (type === 'balance') {
+        result = Math.ceil(value * 1.043);
+      } else if (type === 'money') {
+        result = Math.ceil((value / 1.2) * 1.043);
+      }
+
+      resultElement.textContent = `النتيجة: ${result}`;
+    }
+  </script>
+
+</body>
+</html>
